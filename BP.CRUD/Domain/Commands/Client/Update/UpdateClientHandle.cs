@@ -23,7 +23,7 @@ namespace BP.CRUD.Domain.Commands.Client.Update
                 return false;
             }
 
-            var client = await _clientRepository.GetByIdAsync(command.Id, cancellationToken);
+            var client = await _clientRepository.GetByIdAsync(command.GetId(), cancellationToken);
             if (client == null)
             {
                 return false;
@@ -31,7 +31,7 @@ namespace BP.CRUD.Domain.Commands.Client.Update
 
             client.Name = command.Name;
             client.Email = command.Email;
-            client.Phones = command.Phones;
+            client.Phones = command.PhoneCommandToPhone();
 
             await _clientRepository.UpdateAsync(client, cancellationToken);
 

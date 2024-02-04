@@ -6,7 +6,7 @@ namespace BP.CRUD.Domain.Commands.Client.Update
     {
         public UpdateClientValidator()
         {
-            RuleFor(command => command.Id)
+            RuleFor(command => command.GetId())
                 .NotEmpty().WithMessage("O Código é obrigatório.");
 
             RuleFor(command => command.Name)

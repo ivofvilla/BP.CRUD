@@ -30,7 +30,8 @@ namespace BP.CRUD.Data
 
             builder.HasOne(p => p.Client)
                 .WithMany(c => c.Phones)
-                .HasForeignKey(p => p.IdCliente);
+                .HasForeignKey(p => p.IdCliente)
+                .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

@@ -30,15 +30,8 @@ namespace BP.CRUD.Domain.Commands.Client.Create
 
     public class PhoneCommand
     {
-
-        [Column("Tipo")]
         public bool Type { get; set; }
-
-        [Column("DDD")]
         public int DDD { get; set; }
-
-        [Column("Numero")]
         public string Number { get; set; }
-
     }
 }

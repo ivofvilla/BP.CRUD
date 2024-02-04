@@ -1,5 +1,4 @@
-﻿using BP.CRUD.Domain.Enum;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace BP.CRUD.Domain.Models

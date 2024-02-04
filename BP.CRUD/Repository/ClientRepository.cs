@@ -1,5 +1,4 @@
 ﻿using BP.CRUD.Data;
-using BP.CRUD.Domain.Enum;
 using BP.CRUD.Domain.Models;
 using BP.CRUD.Repository.Interfaces;
 using Microsoft.EntityFrameworkCore;
@@ -71,7 +70,7 @@ namespace BP.CRUD.Repository
 
         public async Task<Client?> GetByIdAsync(Guid id, CancellationToken cancellationToken = default)
         {
-            return await _context.Clients.FirstOrDefaultAsync(w => w.Id == id, cancellationToken);
+            return await _context.Clients.Include(c => c.Phones).FirstOrDefaultAsync(w => w.Id == id, cancellationToken);
         }
 
         public async Task<IEnumerable<Client>?> GetsAsync(CancellationToken cancellationToken = default)
