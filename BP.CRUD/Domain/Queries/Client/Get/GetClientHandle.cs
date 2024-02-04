@@ -15,7 +15,7 @@ namespace BP.CRUD.Domain.Queries.Client.Get
 
         public async Task<GetClientResult?> Handle(GetClientQuery query, CancellationToken cancellationToken)
         {
-            var result = await _clientRepository.GetAsync(query.Id, query.Name, query.Email, query.DDD, query.PhoneNumber, cancellationToken);
+            var result = await _clientRepository.GetAsync(query.Id, query.Name, query.Email, query.Type, query.DDD, query.PhoneNumber, cancellationToken);
             var clients = new GetClientResult();
             clients.Clients = result;
 

@@ -1,4 +1,5 @@
 ﻿using BP.CRUD.Data;
+using BP.CRUD.Domain.Enum;
 using BP.CRUD.Domain.Models;
 using BP.CRUD.Repository.Interfaces;
 using Microsoft.EntityFrameworkCore;
@@ -32,14 +33,14 @@ namespace BP.CRUD.Repository
             await _context.SaveChangesAsync(cancellationToken);
         }
 
-        public async Task<IEnumerable<Client>?> GetAsync(Guid? id, string? name, string? email, int? ddd, string? phoneNumber, CancellationToken cancellationToken = default)
+        public async Task<IEnumerable<Client>?> GetAsync(Guid? id, string? name, string? email, bool? type, int? ddd, string? phoneNumber, CancellationToken cancellationToken = default)
         {
             if (id != null)
             {
-                return await _context.Clients.Where(w => w.Id == id).ToListAsync();
+                return await _context.Clients.Include(c => c.Phones).Where(w => w.Id == id).ToListAsync();
             }
 
-            IQueryable<Client>? clients = _context.Clients;
+            IQueryable<Client>? clients = _context.Clients.Include(c => c.Phones);
 
             if (name != null)
             {
@@ -49,6 +50,10 @@ namespace BP.CRUD.Repository
             if (email != null)
             {
                 clients = clients.Where(w => w.Email.Equals(email));
+            }
+            if (type != null)
+            {
+                clients = clients.Where(w => w.Phones.Any(a => a.Type == type.Value));
             }
 
             if (ddd != null)
@@ -71,7 +76,9 @@ namespace BP.CRUD.Repository
 
         public async Task<IEnumerable<Client>?> GetsAsync(CancellationToken cancellationToken = default)
         {
-            return await _context.Clients.ToListAsync();
+            return await _context.Clients
+                                 .Include(c => c.Phones)
+                                 .ToListAsync();
         }
 
         public async Task UpdateAsync(Client client, CancellationToken cancellationToken = default)

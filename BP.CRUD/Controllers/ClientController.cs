@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MediatR;
-using Microsoft.AspNetCore.Authorization;
 using BP.CRUD.Domain.Commands.Client.Create;
 using BP.CRUD.Domain.Commands.Client.Update;
 using BP.CRUD.Domain.Commands.Client.Delete;
@@ -8,6 +7,7 @@ using BP.CRUD.Domain.Commands.Client.DeleteLogic;
 using BP.CRUD.Domain.Queries.Client.Gets;
 using BP.CRUD.Domain.Queries.Client.Get;
 using BP.CRUD.Domain.Models;
+using Newtonsoft.Json;
 
 namespace BP.CRUD.Controllers
 {
@@ -31,7 +31,7 @@ namespace BP.CRUD.Controllers
                 return Created("", "Cliente cadastrado!");
             }
 
-            return BadRequest("Cliente não encontrado!");
+            return BadRequest("Erro ao cadastrar o cliente!");
         }
 
         [HttpGet]
@@ -39,21 +39,31 @@ namespace BP.CRUD.Controllers
         public async Task<ActionResult<GetClientsResult>?> GetClientsAsync(CancellationToken cancellationToken)
         {
             var result = await _mediator.Send(new GetClientsQuery(), cancellationToken);
-            return Ok(result);
+            var jsonSettings = new JsonSerializerSettings
+            {
+                ReferenceLoopHandling = ReferenceLoopHandling.Ignore
+            };
+
+            return Ok(JsonConvert.SerializeObject(result, jsonSettings));
         }
         
         [HttpGet]
         [Route("api/Client/Get")]
-        public async Task<ActionResult<Client>> GetClientAsync([FromBody] GetClientQuery query, CancellationToken cancellationToken)
+        public async Task<ActionResult<Client>> GetClientAsync([FromQuery] GetClientQuery query, CancellationToken cancellationToken)
         {
-            var client = await _mediator.Send(query, cancellationToken);
+            var clients = await _mediator.Send(query, cancellationToken);
         
-            if (client == null)
+            if (clients == null)
             {
                 return NotFound();
             }
-        
-            return Ok(client);
+
+            var jsonSettings = new JsonSerializerSettings
+            {
+                ReferenceLoopHandling = ReferenceLoopHandling.Ignore
+            };
+
+            return Ok(JsonConvert.SerializeObject(clients, jsonSettings));
         }
         
         [HttpPut]
