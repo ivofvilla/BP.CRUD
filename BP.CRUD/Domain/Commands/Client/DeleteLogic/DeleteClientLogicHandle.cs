@@ -4,12 +4,12 @@ using MediatR;
 
 namespace BP.CRUD.Domain.Commands.Client.DeleteLogic
 {
-    public class DeleteClientHandle : IRequestHandler<DeleteClientLogicCommand, bool>
+    public class DeleteLogiClientHandle : IRequestHandler<DeleteClientLogicCommand, bool>
     {
         private readonly IClientRepository _clientRepository;
         private readonly IValidator<DeleteClientLogicCommand> _validator;
 
-        public DeleteClientHandle(IClientRepository clientRepository, IValidator<DeleteClientLogicCommand> validator)
+        public DeleteLogiClientHandle(IClientRepository clientRepository, IValidator<DeleteClientLogicCommand> validator)
         {
             _clientRepository = clientRepository;
             _validator = validator;
