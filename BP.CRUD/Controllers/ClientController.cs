@@ -20,11 +20,12 @@ namespace BP.CRUD.Controllers
             _mediator = mediator;
         }
 
-        [AllowAnonymous]
         [HttpPost]
-        public async Task<IActionResult> ClientAsync([FromBody] CreateClientCommand client, CancellationToken cancellationToken)
+        [Route("api/Client/Create")]
+        public async Task<IActionResult> CreateClientAsync([FromBody] CreateClientCommand client, CancellationToken cancellationToken)
         {
             var result = await _mediator.Send(client, cancellationToken);
+
             if (result != null)
             {
                 return Created("", "Cliente cadastrado!");
@@ -34,48 +35,53 @@ namespace BP.CRUD.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<GetClientsResult>?> GetClients(CancellationToken cancellationToken)
+        [Route("api/Client/Gets")]
+        public async Task<ActionResult<GetClientsResult>?> GetClientsAsync(CancellationToken cancellationToken)
         {
             var result = await _mediator.Send(new GetClientsQuery(), cancellationToken);
             return Ok(result);
         }
-
+        
         [HttpGet]
-        public async Task<ActionResult<Client>> GetClient(GetClientQuery query, CancellationToken cancellationToken)
+        [Route("api/Client/Get")]
+        public async Task<ActionResult<Client>> GetClientAsync([FromBody] GetClientQuery query, CancellationToken cancellationToken)
         {
             var client = await _mediator.Send(query, cancellationToken);
-
+        
             if (client == null)
             {
                 return NotFound();
             }
-
+        
             return Ok(client);
         }
-
-        [HttpPut("{id}")]
-        public async Task<IActionResult> Client(Guid id, [FromBody] UpdateClientCommand command, CancellationToken cancellationToken)
+        
+        [HttpPut]
+        [Route("api/Client/Update/{id}")]
+        public async Task<IActionResult> UpdateClientAsync(Guid id, [FromBody] UpdateClientCommand command, CancellationToken cancellationToken)
         {
             command.SetId(id);
-
+        
             if (await _mediator.Send(command, cancellationToken))
             {
                 return Ok("Cliente atualizado com sucesso!");
             }
-
+        
             return BadRequest("Ocorreu um erro!");
         }
-
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> Client(Guid id, CancellationToken cancellationToken)
+        
+        [HttpDelete]
+        [Route("api/Client/Delete/{id}")]
+        public async Task<IActionResult> DeleteClientAsync(Guid id, CancellationToken cancellationToken)
         {
             var command = new DeleteClientCommand { Id = id };
             await _mediator.Send(command, cancellationToken);
             return Ok("Cliente apagado com sucesso!");
         }
-
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> ClientLogic(Guid id, CancellationToken cancellationToken)
+        
+        [HttpDelete]
+        [Route("api/Client/DeleteLogic/{id}")]
+        public async Task<IActionResult> DeleteClientLogicAsync(Guid id, CancellationToken cancellationToken)
         {
             var command = new DeleteClientLogicCommand { Id = id };
             await _mediator.Send(command, cancellationToken);

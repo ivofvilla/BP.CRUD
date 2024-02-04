@@ -17,7 +17,7 @@ namespace BP.CRUD.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.HasDefaultSchema("public");
+            modelBuilder.HasDefaultSchema("dbo");
             foreach (var property in modelBuilder.Model.GetEntityTypes()
                 .SelectMany(e => e.GetProperties()
                     .Where(p => p.ClrType == typeof(string))))
@@ -31,5 +31,6 @@ namespace BP.CRUD.Data
         }
 
         public virtual DbSet<Client> Clients { get; set; }
+        public virtual DbSet<Phone> Phones { get; set; }
     }
 }

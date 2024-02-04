@@ -23,7 +23,7 @@ namespace BP.CRUD.Domain.Commands.Client.Create
                 return false;
             }
 
-            var client = new Models.Client(command.Name, command.Email, command.Phones);
+            var client = new Models.Client(command.Name, command.Email, command.PhoneCommandToPhone());
 
             await _clientRepository.CreateAsync(client, cancellationToken);
 

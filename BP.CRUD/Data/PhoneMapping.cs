@@ -8,25 +8,29 @@ namespace BP.CRUD.Data
     {
         public void Configure(EntityTypeBuilder<Phone> builder)
         {
+            builder.ToTable("Telefones");
+
             builder.HasKey(p => p.Id);
 
+            builder.Property(p => p.Id)
+                .HasDefaultValueSql("NEWID()");
+
             builder.Property(p => p.IdCliente)
-                .HasDefaultValueSql("'guid'");
+                .IsRequired();
 
             builder.Property(p => p.DDD)
-                .HasDefaultValueSql("'int'");
+                .IsRequired();
 
             builder.Property(p => p.Type)
-                .HasDefaultValueSql("'bit'");
+                .IsRequired();
 
             builder.Property(p => p.Number)
-                .HasDefaultValueSql("'varchar'");
+                .IsRequired()
+                .HasMaxLength(9);
 
-            builder.Property(p => p.Type)
-                .HasDefaultValueSql("'bit'");
-
-
-            builder.ToTable("Telefones");
+            builder.HasOne(p => p.Client)
+                .WithMany(c => c.Phones)
+                .HasForeignKey(p => p.IdCliente);
         }
     }
 }

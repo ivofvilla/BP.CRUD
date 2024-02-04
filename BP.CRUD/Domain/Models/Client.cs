@@ -15,9 +15,11 @@ namespace BP.CRUD.Domain.Models
         [Column("Ativo")]
         public bool Active { get; set; }
 
-        public IEnumerable<Phone> Phones { get; set; }
+        public IEnumerable<Phone> Phones { get; set; } = new List<Phone>();
 
-
+        public Client()
+        {
+        }
 
         public Client(string nome, string email, IEnumerable<Phone> Phones)
         {

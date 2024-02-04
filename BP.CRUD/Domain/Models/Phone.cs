@@ -20,5 +20,7 @@ namespace BP.CRUD.Domain.Models
 
         [Column("Numero")]
         public string Number { get; set; }
+
+        public Client Client { get; set; }
     }
 }
