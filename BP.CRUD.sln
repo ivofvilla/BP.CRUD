@@ -3,7 +3,19 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.8.34511.84
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BP.CRUD", "BP.CRUD\BP.CRUD.csproj", "{5BFD3F0F-5349-4EE4-B30A-0779532DC816}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BP.CRUD", "BP.CRUD\BP.CRUD.csproj", "{5BFD3F0F-5349-4EE4-B30A-0779532DC816}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Src", "Src", "{0DBABC1C-3AFE-46DB-B430-2EAF9E5BA5F4}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{290BCC54-056E-43A9-9B86-D68BD87AEBA7}"
+	ProjectSection(SolutionItems) = preProject
+		leia.me = leia.me
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DB", "DB", "{1316B6E9-6BB2-4C36-A26D-D607243BB7EC}"
+	ProjectSection(SolutionItems) = preProject
+		database.sql = database.sql
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -18,6 +30,9 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{5BFD3F0F-5349-4EE4-B30A-0779532DC816} = {0DBABC1C-3AFE-46DB-B430-2EAF9E5BA5F4}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {B4731DF1-044E-427F-9405-01F0E035EB54}
